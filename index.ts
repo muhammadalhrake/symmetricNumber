@@ -1,7 +1,8 @@
 // Import stylesheets
 import random from 'random';
 import './style.css';
-import {ansArray} from './answers'
+import { ansArray } from './answers';
+import { symmenticGenerate } from './symmentic-generate';
 
 let stats = {
   2: {
@@ -53,24 +54,26 @@ function multieQuestion(
   state: string[]
 ) {
   let generate: number;
-  let multGenerate = new Array();
-  debugger;
+  let symmetricG: symmenticGenerate;
+  let multGenerate = new Array<symmenticGenerate>();
+  
   for (let i = 0; i < count; ) {
     for (let j = 0; j < symmatricNum.length && i < count; j++) {
       for (let k = 0; k < state.length && i < count; k++) {
         let mumberSymmetric = symmatricNum[j];
         let mumberState = state[k];
         generate = symmetricNumber(mumberState, mumberSymmetric);
-        
+
         if (mumberState == '<100') {
-          generate = addLessthan(
+          symmetricG = addLessthan(
             stats[mumberSymmetric][mumberState],
             mumberSymmetric,
             mumberState
           );
-
+          //here 22 for symmetric number waitin for update.
+          
         } else if (mumberState == '>100') {
-          generate = addLargerThen(
+          symmetricG = addLargerThen(
             stats[mumberSymmetric][mumberState],
             mumberSymmetric,
             mumberState
@@ -78,7 +81,7 @@ function multieQuestion(
         }
         //console.log(generate)
         i++;
-        multGenerate.push(generate);
+        multGenerate.push(symmetricG);
       }
     }
   }
@@ -89,18 +92,32 @@ function addLessthan(arr: number[], mumSymm: number, mumState: string) {
   if (arr.length == keyWord[mumSymm][0]) {
     arr = [];
   }
-  let generat = symmetricNumber(mumState, mumSymm);
+  let symmetricG:symmenticGenerate;
+  let newObject={answers:[5,5,5,5],multiplyNum :0,symmetricNum:22}
+  let generate = symmetricNumber(mumState, mumSymm);
   if (arr.length == 0) {
-    arr.push(generat);
-    return generat;
-  } else if (arr.indexOf(generat) == -1) {
-    arr.push(generat);
-    return generat;
+    arr.push(generate);
+    newObject.multiplyNum = generate;
+    newObject.answers = ansArray(22, generate);
+    newObject.symmetricNum = 22;
+    symmetricG= newObject;
+    return symmetricG
+  } else if (arr.indexOf(generate) == -1) {
+    arr.push(generate);
+    newObject.multiplyNum = generate;
+    newObject.answers = ansArray(22, generate);
+    newObject.symmetricNum = 22;
+    symmetricG= newObject;
+    return symmetricG
   } else {
     for (let i = 1; i <= keyWord[mumSymm][0]; i++) {
       if (arr.indexOf(i) == -1) {
         arr.push(i);
-        return i;
+        newObject.multiplyNum = i;
+        newObject.answers = ansArray(22, i);
+        newObject.symmetricNum = 22;
+        symmetricG= newObject;
+        return symmetricG;
       }
     }
   }
@@ -154,7 +171,7 @@ function symmetricNumber(state: string, symmatricNum: number) {
     return between(1, keyWord[symmatricNum][0]);
   }
 }
-console.log(multieQuestion(11, [2], ['>100']));
+console.log(multieQuestion(11, [2], ['<100']));
 
 //console.log(stats[2] ['<100']);
 /* setInterval(()=>{console.log(multieQuestion(29,[2,3,4],["<100"]))},500); */

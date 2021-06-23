@@ -44,3 +44,37 @@ function shuffle(a: any[]) {
 function between(min: number, max: number) {
   return random.int(min, max);
 }
+function ansGenerat(correctAns: number) {
+  let sCorrentAns = correctAns.toString();
+  let arr = sCorrentAns.split('').map(num => +num);
+  return shuffle(arr);
+}
+export function ansArray(ones: number, num: number) {
+  //debugger
+
+  let first = ones * num;
+  let answers: any[];
+
+  let second;
+
+  second = +ansGenerat(first).join('');
+
+  let digits = first.toString().length;
+  let third = between(
+    +new Array(digits).fill(1).join(''),
+    +new Array(digits).fill(9).join('')
+  );
+  let fourth = between(
+    +new Array(digits).fill(1).join(''),
+    +new Array(digits).fill(9).join('')
+  );
+  answers = [first, second, third, fourth];
+  for (let i = 3; i >= 0; i--) {
+    let j, x;
+    let rand = between(0, i);
+    x = answers[rand];
+    answers[rand] = answers[i];
+    answers[i] = x;
+  }
+  return answers;
+}

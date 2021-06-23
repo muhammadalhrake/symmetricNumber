@@ -1,5 +1,5 @@
 import random from 'random';
-
+import { symmenticGenerate } from './symmentic-generate';
 function shuffle(a: any[]) {
   //debugger
   let array = [...a];
@@ -49,10 +49,10 @@ function ansGenerat(correctAns: number) {
   let arr = sCorrentAns.split('').map(num => +num);
   return shuffle(arr);
 }
-export function ansArray(ones: number, num: number) {
+export function ansArray(symmatricNum: number, multiblyNumber: number) {
   //debugger
 
-  let first = ones * num;
+  let first = symmatricNum * multiblyNumber;
   let answers: any[];
 
   let second;

@@ -1,14 +1,7 @@
 // Import stylesheets
 import random from 'random';
 import './style.css';
-enum possibilities {
-  two = 49,
-  three = 33,
-  four = 24,
-  five = 19,
-  six = 16,
-  siven = 14
-}
+import {ansArray} from './answers'
 
 let stats = {
   2: {
@@ -65,33 +58,21 @@ function multieQuestion(
   for (let i = 0; i < count; ) {
     for (let j = 0; j < symmatricNum.length && i < count; j++) {
       for (let k = 0; k < state.length && i < count; k++) {
-        let mumberSymmatric = symmatricNum[j];
+        let mumberSymmetric = symmatricNum[j];
         let mumberState = state[k];
-        generate = symmetricNumber(mumberState, mumberSymmatric);
-        /* if (stats[mumberSymmatric][mumberState].length == 0) {
-          stats[mumberSymmatric][mumberState].push(generate);
-        } else if (
-          stats[mumberSymmatric][mumberState].indexOf(generate) == -1
-        ) {
-          stats[mumberSymmatric][mumberState].push(generate);
-        } else {
-          //console.log('error habbend');
-          generate = addLessthan(
-            stats[mumberSymmatric][mumberState],
-            mumberSymmatric,
-            mumberState
-          );
-        } */
+        generate = symmetricNumber(mumberState, mumberSymmetric);
+        
         if (mumberState == '<100') {
           generate = addLessthan(
-            stats[mumberSymmatric][mumberState],
-            mumberSymmatric,
+            stats[mumberSymmetric][mumberState],
+            mumberSymmetric,
             mumberState
           );
+
         } else if (mumberState == '>100') {
           generate = addLargerThen(
-            stats[mumberSymmatric][mumberState],
-            mumberSymmatric,
+            stats[mumberSymmetric][mumberState],
+            mumberSymmetric,
             mumberState
           );
         }

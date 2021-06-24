@@ -56,8 +56,11 @@ export function ansArray(symmatricNum: number, multiblyNumber: number) {
   let answers: any[];
 
   let second;
-
-  second = +ansGenerat(first).join('');
+  if (first.toString().length <= 2) {
+    second = first + 1;
+  }else{
+    second = +ansGenerat(first).join('');
+  }
 
   let digits = first.toString().length;
   let third = between(

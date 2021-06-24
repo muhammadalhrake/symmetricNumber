@@ -183,7 +183,7 @@ function symmetricNumber(state: string, symmatricNum: number) {
 console.log(multieQuestion(40, [2], ['<100']));
 
 //console.log(stats[2] ['<100']);
-/* setInterval(()=>{console.log(multieQuestion(29,[2,3,4],["<100"]))},500); */
+/* setInterval(()=>{console.log(multieQuestion(40, [2], ['<100']));},500); */
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
 appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;

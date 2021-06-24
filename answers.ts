@@ -1,5 +1,4 @@
 import random from 'random';
-import { symmenticGenerate } from './symmentic-generate';
 function shuffle(a: any[]) {
   //debugger
   let array = [...a];
@@ -58,11 +57,11 @@ export function ansArray(symmatricNum: number, multiblyNumber: number) {
   let second;
   if (first.toString().length == 2) {
     second = first + 1;
-  }else if(first.toString().length == 1){
-    if(first==9){
-      second=first-1;
-    }else{
-      second=first+1;
+  } else if (first.toString().length == 1) {
+    if (first == 9) {
+      second = first - 1;
+    } else {
+      second = first + 1;
     }
   } else {
     second = +ansGenerat(first).join('');

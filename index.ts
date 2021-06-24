@@ -44,7 +44,6 @@ function multieQuestion(
   digits: number[],
   state: string[]
 ) {
-  let generate: number;
   let symmetricG: symmenticGenerate;
   let multGenerate = new Array<symmenticGenerate>();
 

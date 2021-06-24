@@ -56,9 +56,15 @@ export function ansArray(symmatricNum: number, multiblyNumber: number) {
   let answers: any[];
 
   let second;
-  if (first.toString().length <= 2) {
+  if (first.toString().length == 2) {
     second = first + 1;
-  }else{
+  }else if(first.toString().length == 1){
+    if(first==9){
+      second=first-1;
+    }else{
+      second=first+1;
+    }
+  } else {
     second = +ansGenerat(first).join('');
   }
 

@@ -1,10 +1,9 @@
 // Import stylesheets
-import random from 'random';
 import './style.css';
-import { ansArray } from './answers';
 import { symmenticGenerate } from './symmentic-generate';
+import { addLargerThen, addLessthan } from './generateSymmenticNumber';
 
-let stats = {
+let spaceOfPossibilities = {
   2: {
     '<100': new Array<number>(),
     '>100': new Array<number>()
@@ -38,16 +37,7 @@ let stats = {
     '>100': new Array<number>()
   }
 };
-let keyWord = {
-  2: new Array(),
-  3: new Array(),
-  4: new Array(),
-  5: new Array(),
-  6: new Array(),
-  7: new Array(),
-  8: new Array(),
-  9: new Array()
-};
+
 function multieQuestion(
   count: number,
   symmatricNum: number[],
@@ -65,11 +55,10 @@ function multieQuestion(
           let mumberSymmetric = symmatricNum[j];
           let mumberDigits = digits[k];
           let mumberState = state[l];
-          generate = symmetricNumber(mumberState, mumberSymmetric);
 
           if (mumberState == '<100') {
             symmetricG = addLessthan(
-              stats[mumberSymmetric][mumberState],
+              spaceOfPossibilities[mumberSymmetric][mumberState],
               mumberSymmetric,
               mumberDigits,
               mumberState
@@ -77,7 +66,7 @@ function multieQuestion(
             //here 22 for symmetric number waitin for update.
           } else if (mumberState == '>100') {
             symmetricG = addLargerThen(
-              stats[mumberSymmetric][mumberState],
+              spaceOfPossibilities[mumberSymmetric][mumberState],
               mumberSymmetric,
               mumberDigits,
               mumberState
@@ -90,117 +79,13 @@ function multieQuestion(
       }
     }
   }
-  console.log(stats);
+  console.log(spaceOfPossibilities);
   return multGenerate;
 }
-function addLessthan(
-  arr: number[],
-  mumSymm: number,
-  digits: number,
-  mumState: string
-) {
-  if (arr.length == keyWord[mumSymm][0]) {
-    arr = [];
-  }
-  let mumberSymmentic = +new Array(digits).fill(mumSymm).join('');
-  let symmetricG: symmenticGenerate;
-  let newObject = { answers: [5, 5, 5, 5], multiplyNum: 0, symmetricNum: 22 };
-  let generate = symmetricNumber(mumState, mumSymm);
-  if (arr.length == 0) {
-    arr.push(generate);
-    newObject.multiplyNum = generate;
-    newObject.answers = ansArray(mumberSymmentic, generate);
-    newObject.symmetricNum = mumberSymmentic;
-    symmetricG = newObject;
-    return symmetricG;
-  } else if (arr.indexOf(generate) == -1) {
-    arr.push(generate);
-    newObject.multiplyNum = generate;
-    newObject.answers = ansArray(mumberSymmentic, generate);
-    newObject.symmetricNum = mumberSymmentic;
-    symmetricG = newObject;
-    return symmetricG;
-  } else {
-    for (let i = 1; i <= keyWord[mumSymm][0]; i++) {
-      if (arr.indexOf(i) == -1) {
-        arr.push(i);
-        newObject.multiplyNum = i;
-        newObject.answers = ansArray(mumberSymmentic, i);
-        newObject.symmetricNum = mumberSymmentic;
-        symmetricG = newObject;
-        return symmetricG;
-      }
-    }
-  }
-}
-function addLargerThen(
-  arr: number[],
-  mumSymm: number,
-  digits: number,
-  mumState: string
-) {
-  let symmetricG: symmenticGenerate;
-  let mumberSymmentic = +new Array(digits).fill(mumSymm).join('');
-  let newObject = { answers: [5, 5, 5, 5], multiplyNum: 0, symmetricNum: digits };
-  let generate = symmetricNumber(mumState, mumSymm);
-  if (arr.length == 0) {
-    arr.push(generate);
-    newObject.multiplyNum = generate;
-    newObject.answers = ansArray(mumberSymmentic, generate);
-    newObject.symmetricNum = mumberSymmentic;
-    symmetricG = newObject;
-    return symmetricG;
-  } else if (arr.indexOf(generate) == -1) {
-    arr.push(generate);
-    newObject.multiplyNum = generate;
-    newObject.answers = ansArray(mumberSymmentic, generate);
-    newObject.symmetricNum = mumberSymmentic;
-    symmetricG = newObject;
-    return symmetricG;
-  } else {
-    return addLargerThen(arr, mumSymm, digits, mumState);
-  }
-}
 
-function check(arr: number[], mumberSymmatric: number, mumberState: string) {
-  // console.log("I'm in check");
-  let generat = symmetricNumber(mumberState, mumberSymmatric);
-  if (arr.length == 0) {
-    arr.push(generat);
-    return generat;
-  }
-
-  if (arr.indexOf(generat) == -1) {
-    arr.push(generat);
-    return generat;
-  } else {
-    return check(arr, mumberSymmatric, mumberState);
-  }
-}
-function between(min: number, max: number) {
-  return random.int(min, max);
-}
-
-keyWord[2][0] = 49;
-keyWord[3][0] = 33;
-keyWord[4][0] = 24;
-keyWord[5][0] = 19;
-keyWord[6][0] = 16;
-keyWord[7][0] = 14;
-keyWord[8][0] = 12;
-keyWord[9][0] = 11;
-
-function symmetricNumber(state: string, symmatricNum: number) {
-  //console.log("I'm in symmatricNum")
-  if (state == '>100') {
-    return between(keyWord[symmatricNum][0], 99);
-  } else if (state == '<100') {
-    return between(1, keyWord[symmatricNum][0]);
-  }
-}
 console.log(multieQuestion(40, [9], [1], ['<100']));
 
-//console.log(stats[2] ['<100']);
+//console.log(spaceOfPossibilities[2] ['<100']);
 /* setInterval(()=>{console.log(multieQuestion(40, [2], ['<100']));},500); */
 // Write TypeScript code!
 const appDiv: HTMLElement = document.getElementById('app');
